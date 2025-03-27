@@ -1,0 +1,8 @@
+# Plotting and visualization libraries
+plotly==5.10.0
+matplotlib==3.5.1
+
+# Optimization algorithms and support
+numpy==1.21.6
+
+# Development tools (optional, but helpful)

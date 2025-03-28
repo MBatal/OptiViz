@@ -19,3 +19,7 @@ Thumbs.db  # Windows system file
 
 # Ignore environment variable files
 .env
+
+# Ignore ruff files
+utils/
+ruff_helpers/

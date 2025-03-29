@@ -53,7 +53,6 @@ class Particle:
             cognitive_weight (float): Weight on personal exploration (default 2.05).
             social_weight (float): Weight on swarm exploration (default 2.05).
         """
-        prev_velocity = self.velocity.copy()
         # Generate random weights for personal and global influence.
         cognitive_rand = np.random.uniform(0, cognitive_weight, self.dimension)
         social_rand = np.random.uniform(0, social_weight, self.dimension)
@@ -84,7 +83,8 @@ class Particle:
         elif fitness_func.__name__ == 'rosenbrock':
             pmin, pmax, vmin, vmax = 15.0, 30.0, -2.0, 2.0
         elif fitness_func.__name__ == 'ackley':
-            pmin, pmax, vmin, vmax = 16.0, 32.0, -2.0, 4.0
+            # pmin, pmax, vmin, vmax = 16.0, 32.0, -2.0, 4.0
+            pmin, pmax, vmin, vmax = -5, 6, -2.0, 4.0
         elif fitness_func.__name__ == 'sphere':
             pmin, pmax, vmin, vmax = 15.56, 25.12, -2.0, 4.0
         elif fitness_func.__name__ == 'rastrigin':

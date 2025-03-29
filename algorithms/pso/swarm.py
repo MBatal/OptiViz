@@ -2,7 +2,7 @@ import numpy as np
 from algorithms.pso.particle import Particle
 from typing import Callable, List
 import math
-from algorithms.fitness import square
+from algorithms.fitness import square, ackley, rastrigin
 import logging
 from visualization.visualizer import SwarmVisualizer
 
@@ -37,6 +37,7 @@ class Swarm:
         self.logger = logging.getLogger(__name__)
         logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')
 
+        self.dimension=dimension
         self.n_particles = n_particles
         self.lower_bound = lower_bound
         self.upper_bound = upper_bound
@@ -117,6 +118,6 @@ class Swarm:
         return self.global_best_position, self.global_best_fitness
     
 if __name__ == "__main__":
-    swarm = Swarm(dimension=3, n_particles=30, fitness_func=square)
+    swarm = Swarm(dimension=3, n_particles=30, fitness_func=ackley)
     best_position, best_fitness = swarm.optimize()
     print(f"Best Position: {best_position}, Best Fitness: {best_fitness}")

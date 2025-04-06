@@ -2,9 +2,8 @@ import numpy as np
 from algorithms.pso.particle import Particle
 from typing import Callable, List
 import math
-from algorithms.fitness import square, ackley, rastrigin
+from algorithms.fitness import square, ackley
 import logging
-from visualization.visualizer import SwarmVisualizer
 
 class Swarm:
     def __init__(
@@ -48,7 +47,10 @@ class Swarm:
         self.n_iterations = n_iterations
         self.convergence_threshold = convergence_threshold
         
-        self.global_best_position = np.random.uniform(low=lower_bound, high=upper_bound, size=dimension)
+        self.global_best_position = np.random.uniform(low=lower_bound,
+                                                      high=upper_bound,
+                                                      size=dimension
+                                                    )
         self.global_best_fitness = math.inf
         
         # Initialize particles
@@ -118,6 +120,6 @@ class Swarm:
         return self.global_best_position, self.global_best_fitness
     
 if __name__ == "__main__":
-    swarm = Swarm(dimension=3, n_particles=30, fitness_func=ackley)
+    swarm = Swarm(dimension=30, n_particles=100, fitness_func=ackley)
     best_position, best_fitness = swarm.optimize()
     print(f"Best Position: {best_position}, Best Fitness: {best_fitness}")

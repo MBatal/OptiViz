@@ -1,68 +1,40 @@
-# OptiViz - Optimization Algorithm Visualizer
+# OptiViz
 
-OptiViz is a Python-based project aimed at visualizing optimization algorithms, including Particle Swarm Optimization (PSO) and Ant Colony Optimization (ACO). The primary goal of this project is to create an interactive and visually appealing environment to observe the behavior of different optimization algorithms in various problem spaces.
+**OptiViz** is a visual sandbox for optimization algorithms like Particle Swarm Optimization (PSO) and Ant Colony Optimization (ACO). It’s designed to make algorithm behavior more intuitive by showing how particles or agents evolve over time in 2D and 3D problem spaces.
 
-## Table of Contents
+## Features
 
-- [Overview](#overview)
-- [Current Features](#current-features)
-- [Getting Started](#getting-started)
-- [Contributing](#contributing)
-- [License](#license)
-
-## Overview
-
-This project focuses on the implementation and visualization of optimization algorithms. Currently, the project includes basic implementations of PSO and ACO algorithms, with plans to extend to other algorithms in the future. The visualizer uses tools such as Plotly to represent particle movements and algorithm behavior in 2D, 3D, and potentially higher-dimensional spaces.
-
-### Current Algorithms:
-
-- **Particle Swarm Optimization (PSO)**
-- **Ant Colony Optimization (ACO)**
-
-## Current Features
-
-- Basic implementation of PSO for optimization of mathematical functions.
-- Visualization of the algorithm behavior in 2D and 3D spaces.
-- Interactive plotting using Plotly.
-- Modular structure for easy addition of new algorithms.
+- Particle Swarm Optimization (PSO)
+- Ant Colony Optimization (ACO) (WIP)
+- 2D and 3D visualizations using Matplotlib
+- Modular structure for easy extensions
+- Optional animation of optimization steps
 
 ## Getting Started
 
-### Prerequisites
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/OptiViz.git
+   cd OptiViz
+   ```
 
-To run this project locally, you'll need Python 3.7+ and some necessary dependencies. Here's how to get set up:
+2. Set up a virtual environment:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate       # macOS/Linux
+   venv\Scripts\activate          # Windows
+   ```
 
-1. Clone the repository to your local machine:
+3. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-    ```bash
-    git clone https://github.com/yourusername/OptiViz.git
-    cd OptiViz
-    ```
-
-2. Create and activate a virtual environment:
-
-    ```bash
-    python -m venv venv
-    source venv/bin/activate  # For Linux/Mac
-    venv\Scripts\activate     # For Windows
-    ```
-
-3. Install the required dependencies:
-
-    ```bash
-    pip install -r requirements.txt
-    ```
-
-4. Run the main script to test the algorithms:
-
-    ```bash
-    python main.py
-    ```
+4. Run a test script:
+   ```bash
+   python -m testing.animate_test
+   ```
 
 ## Contributing
 
-This is a work-in-progress project. Contributions are welcome! If you'd like to contribute, please fork the repository, create a branch, and submit a pull request with your changes.
-
-## License
-
-This project is private and not licensed for public use yet.
+This is a personal project, but contributions are welcome. Feel free to open a pull request.

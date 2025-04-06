@@ -2,7 +2,12 @@ from typing import Callable
 import numpy as np
 
 class Particle:
-    def __init__(self, dimension: int, lower_bound: float, upper_bound: float, fitness_func: Callable[[np.ndarray], float]):
+    def __init__(self,
+                 dimension: int,
+                 lower_bound: float,
+                 upper_bound: float,
+                 fitness_func: Callable[[np.ndarray], float],
+            ):
         """
         Initialize particle with random position and velocity.
 
@@ -88,7 +93,7 @@ class Particle:
         elif fitness_func.__name__ == 'sphere':
             pmin, pmax, vmin, vmax = 15.56, 25.12, -2.0, 4.0
         elif fitness_func.__name__ == 'rastrigin':
-            pmin, pmax, vmin, vmax = 2.56, 5.12, -5.0, 4.0
+            pmin, pmax, vmin, vmax = -2.56, 5.12, -5.0, 4.0
         else:
             # Default case: Raise an error or return default bounds
             print(f"Unknown fitness function: {fitness_func.__name__}")

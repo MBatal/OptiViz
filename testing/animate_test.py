@@ -9,10 +9,10 @@ from visualization.visualizer import SwarmVisualizer  # Assuming SwarmVisualizer
 from algorithms.fitness import rastrigin, ackley, square
 
 # Initialize Swarm with 30 particles in 2D space
-swarm = Swarm(dimension=3, n_particles=30, lower_bound=-5, upper_bound=5, fitness_func=rastrigin)
+swarm = Swarm(dimension=3, n_particles=30, lower_bound=-5, upper_bound=5, fitness_func=ackley)
 
 # Visualizer
-visualizer = SwarmVisualizer(swarm, fitness_func=rastrigin, clip=False)
+visualizer = SwarmVisualizer(swarm, fitness_func=ackley, clip=False)
 
 # Visualize the function and particles in 2D or 3D
 visualizer.plot_function()  # You can switch this between plot_2d and plot_3d depending on your dimension

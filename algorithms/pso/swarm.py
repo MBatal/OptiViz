@@ -1,10 +1,12 @@
-import numpy as np
-from algorithms.pso.particle import Particle
-from typing import Callable, List
-import math
-from algorithms.fitness import square, ackley, rastrigin, get_spacial_bounds, sphere
-from visualization.visualizer import SwarmVisualizer
 import logging
+import math
+from typing import Callable, List
+
+import numpy as np
+
+from algorithms.fitness import ackley, get_spacial_bounds
+from algorithms.pso.particle import Particle
+
 
 class Swarm:
     def __init__(
@@ -24,15 +26,16 @@ class Swarm:
         Initialize a swarm of particles.
 
         Args:
-            dimension (int): Number of search space dimensions (default 3).
-            n_particles (int): Number of particles in the swarm (default 30).
-            lower_bound (float): Minimum position value (default 0.0).
-            upper_bound (float): Maximum position value (default 1.0).
-            inertia (float): Influence of previous velocity (default 0.7298).
-            cognitive_weight (float): Influence of personal best (default 2.05).
-            social_weight (float): Influence of global best (default 2.05).
-            n_iterations (int): Max number of iterations to run (default 1000).
-            convergence_threshold (float): Tolerance for convergence (default 1e-6).
+            dimension (int): Number of search space dimensions (default 3)
+            n_particles (int): Number of particles in the swarm (default 30)
+            lower_bound (float): Minimum position value (default 0.0)
+            upper_bound (float): Maximum position value (default 1.0)
+            inertia (float): Influence of previous velocity (default 0.7298)
+            cognitive_weight (float): Influence of personal best (default 2.05)
+            social_weight (float): Influence of global best (default 2.05)
+            fitness_func (Callable): Fitness function being optimized (defaul ackley)
+            n_iterations (int): Max number of iterations to run (default 1000)
+            convergence_threshold (float): Tolerance for convergence (default 1e-6)
         """
         self.logger = logging.getLogger(__name__)
         logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s', datefmt='%m-%d %H:%M:%S')
@@ -58,7 +61,7 @@ class Swarm:
 
         self.global_best_position = np.random.uniform(low=low_bound, high=hi_bound, size=dimension)
 
-        # Used for tracking of particle positions
+        # Used for tracking of particle positions for animation
         self.history = []
         self.global_best_history = []
 
@@ -110,10 +113,10 @@ class Swarm:
             self.update_velocity()
             self.update_position()
             
-            # Store the current positions in history
+            # Store current positions in history
             self.history.append([particle.position.copy() for particle in self.particles])
 
-            # Store the current global best position in history
+            # Store current global best position in history
             self.global_best_history.append(self.global_best_position.copy())
             
             if iter % 10 ==0:
@@ -122,15 +125,3 @@ class Swarm:
         
         logging.info(f"Iteration: {iter}")
         return self.global_best_position, self.global_best_fitness
-    
-
-if __name__ == "__main__":
-    fit_func = rastrigin
-    low_bound, hi_bound, _, _ = get_spacial_bounds(fit_func)
-    swarm = Swarm(dimension=3, lower_bound=low_bound, upper_bound=hi_bound, n_particles=30, fitness_func=fit_func, n_iterations=1000)
-    best_position, best_fitness = swarm.optimize()
-    print(f"Best Position: {best_position}, Best Fitness: {best_fitness}")
-
-    # Visualize the final state
-    visualizer = SwarmVisualizer(swarm, fitness_func=fit_func)
-    visualizer.plot_function()

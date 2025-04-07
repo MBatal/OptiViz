@@ -1,10 +1,12 @@
-import numpy as np
-import math
 from typing import Callable
+
+import numpy as np
+
 
 def get_spacial_bounds(fitness_func: Callable[[np.ndarray], float]):
         """
         Returns lower and upper bounds of initial particle position and velocity
+        Position values also used to set bounds of plot
 
         Args:
             fitness_func (Callable): The function PSO is optimizing
@@ -17,14 +19,13 @@ def get_spacial_bounds(fitness_func: Callable[[np.ndarray], float]):
             - vmax (float): Upper bound for particle velocity
         """
         if fitness_func.__name__ == 'square':
-            #pmin, pmax, vmin, vmax = 0.5, 10.0, 0.001, 0.005
+            # pmin, pmax, vmin, vmax = 0.5, 10.0, 0.001, 0.005
             pmin, pmax, vmin, vmax = -0.5, 0.5, 0.001, 0.005
         elif fitness_func.__name__ == 'rosenbrock':
-            # TODO
             # pmin, pmax, vmin, vmax = 15.0, 30.0, -2.0, 2.0
             pmin, pmax, vmin, vmax = -5, 5.0, -2.0, 2.0
         elif fitness_func.__name__ == 'ackley':
-            #pmin, pmax, vmin, vmax = 16.0, 32.0, -2.0, 4.0
+            # pmin, pmax, vmin, vmax = 16.0, 32.0, -2.0, 4.0
             pmin, pmax, vmin, vmax = -5, 6, -2.0, 4.0
         elif fitness_func.__name__ == 'sphere':
             pmin, pmax, vmin, vmax = -15.56, 15.56, -2.0, 4.0
@@ -32,7 +33,6 @@ def get_spacial_bounds(fitness_func: Callable[[np.ndarray], float]):
             # pmin, pmax, vmin, vmax = -2.56, 5.12, -5.0, 4.0
             pmin, pmax, vmin, vmax = -2.06, 2.06, -5.0, 4.0
         else:
-            # Default case: Raise an error or return default bounds
             print(f"Unknown fitness function: {fitness_func.__name__}")
             raise ValueError(f"Unknown fitness function: {fitness_func.__name__}")
 
@@ -58,13 +58,14 @@ def rosenbrock(position: np.ndarray, a: float=1, b: float=100) -> float:
 
     Args:
         position (np.ndarray): The position of the particle in n-dimensional space
-        a (float): 
+        b (float): alpha - sets minimum of function (default 1)
+        b (float): beta - sets steepness of curve (default 100)
 
     Returns:
         float: The fitness value of the particle
     """
     n = len(position)
-    return np.sum([ (a - position[i])**2 + b * (position[i+1] - position[i]**2)**2 for i in range(n-1)])
+    return np.sum([(a - position[i])**2 + b * (position[i+1] - position[i]**2)**2 for i in range(n-1)])
 
 def ackley(position: np.ndarray) -> float:
     """

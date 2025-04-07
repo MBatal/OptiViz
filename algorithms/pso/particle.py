@@ -1,11 +1,10 @@
 from typing import Callable
 import numpy as np
+from algorithms.fitness import get_spacial_bounds
 
 class Particle:
     def __init__(self,
                  dimension: int,
-                 lower_bound: float,
-                 upper_bound: float,
                  fitness_func: Callable[[np.ndarray], float],
             ):
         """
@@ -17,9 +16,7 @@ class Particle:
             upper_bound (float): Upper bound for position.
         """
         self.dimension = dimension
-        self.lower_bound = lower_bound
-        self.upper_bound = upper_bound
-        pmin, pmax, vmin, vmax = self.get_spacial_bounds(fitness_func=fitness_func)
+        pmin, pmax, vmin, vmax = get_spacial_bounds(fitness_func=fitness_func)
         # Position initialized to a random value between
         # lower_bound and upper_bound for each dimension
         self.position = np.random.uniform(pmin, pmax, dimension)
@@ -69,8 +66,6 @@ class Particle:
         )
 
         self.velocity = new_velocity
-        # print(f"Previous Velocity: {prev_velocity}")
-        # print(f"Updated Velocity: {self.velocity}")
 
     def update_position(self):
         """
@@ -79,24 +74,3 @@ class Particle:
         Ensure position stays within defined bounds.
         """
         self.position += self.velocity
-        # Ensure position stays within bounds
-        #self.position = np.clip(self.position, self.lower_bound, self.upper_bound)
-
-    def get_spacial_bounds(self, fitness_func: Callable[[np.ndarray], float]):
-        if fitness_func.__name__ == 'square':
-            pmin, pmax, vmin, vmax = 0.5, 10.0, 0.001, 0.005
-        elif fitness_func.__name__ == 'rosenbrock':
-            pmin, pmax, vmin, vmax = 15.0, 30.0, -2.0, 2.0
-        elif fitness_func.__name__ == 'ackley':
-            # pmin, pmax, vmin, vmax = 16.0, 32.0, -2.0, 4.0
-            pmin, pmax, vmin, vmax = -5, 6, -2.0, 4.0
-        elif fitness_func.__name__ == 'sphere':
-            pmin, pmax, vmin, vmax = 15.56, 25.12, -2.0, 4.0
-        elif fitness_func.__name__ == 'rastrigin':
-            pmin, pmax, vmin, vmax = -2.56, 5.12, -5.0, 4.0
-        else:
-            # Default case: Raise an error or return default bounds
-            print(f"Unknown fitness function: {fitness_func.__name__}")
-            raise ValueError(f"Unknown fitness function: {fitness_func.__name__}")
-
-        return pmin, pmax, vmin, vmax

@@ -6,18 +6,16 @@ from typing import Callable
 from algorithms.pso.swarm import Swarm, Particle  # Assuming Swarm and Particle classes are defined in the "swarm.py" file in the other folder.
 from algorithms.pso.particle import Particle
 from visualization.visualizer import SwarmVisualizer  # Assuming SwarmVisualizer is defined in "visualization.py"
-from algorithms.fitness import rastrigin, ackley, square
+from algorithms.fitness import rastrigin, ackley, square, get_spacial_bounds, sphere, rosenbrock
 
-# Initialize Swarm with 30 particles in 2D space
-swarm = Swarm(dimension=3, n_particles=30, lower_bound=-5, upper_bound=5, fitness_func=ackley)
+fit_func = rosenbrock
+low_bound, hi_bound, _, _ = get_spacial_bounds(fit_func)
+swarm = Swarm(dimension=3, lower_bound=low_bound, upper_bound=hi_bound, n_particles=30, fitness_func=fit_func, n_iterations=1000)
+best_position, best_fitness = swarm.optimize()
+print(f"Best Position: {best_position}, Best Fitness: {best_fitness}")
 
-# Visualizer
-visualizer = SwarmVisualizer(swarm, fitness_func=ackley, clip=False)
-
-# Visualize the function and particles in 2D or 3D
-visualizer.plot_function()  # You can switch this between plot_2d and plot_3d depending on your dimension
-
-# Animate the PSO process over 100 iterations with a delay of 200ms between frames
-visualizer.animate(n_iterations=1000, interval=200)
+# Visualize the final state
+visualizer = SwarmVisualizer(swarm, fitness_func=fit_func)
+visualizer.plot_function()
 
 # NOTE:  python -m testing.animate_test
